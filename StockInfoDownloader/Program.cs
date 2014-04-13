@@ -28,9 +28,6 @@ namespace StockInfoDownloader
             FinancialModelService modelSerivce = new FinancialModelService();
             modelSerivce.UpdateGrahamAnalysis("INTC");
             modelSerivce.UpdateDcfAnalysis("INTC");
-
-            CompanyDownloader companyDownloader = new CompanyDownloader(@"C:\stocks\", "http://www.nasdaq.com/screening/companies-by-name.aspx?letter=");
-            companyDownloader.Download();
         }
     }
 }
