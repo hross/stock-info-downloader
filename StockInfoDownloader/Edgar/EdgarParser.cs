@@ -33,22 +33,25 @@ namespace StockInfoDownloader.Edgar
             doc.Load(_filing.PathOnDisk);
 
             // cache the contexts for this document
-            Dictionary<string, FactContext> contexts = BuildContextHash(doc.GetElementsByTagName("context"), _filing.Ticker, StatementBase.SourceEdgar);
+            Dictionary<string, FactContext> contexts = BuildContextHash(doc.GetElementsByTagName("xbrli:context"), _filing.Ticker, StatementBase.SourceEdgar);
 
-            var keys = BalanceSheetElements.Keys.Concat(CashFlowElements.Keys).Concat(IncomeStatementElements.Keys).ToList();
-
-            foreach (string key in keys)
+            if (contexts.Count > 0)
             {
-                // find all elements matching the tag (from all time periods)
-                XmlNodeList nodeList = doc.GetElementsByTagName(key);
-                foreach (XmlNode node in nodeList)
-                {
-                    // figure out the context for each element of that name
-                    string contextId = node.Attributes["contextRef"].InnerText;
-                    string val = node.InnerText;
+                var keys = BalanceSheetElements.Keys.Concat(CashFlowElements.Keys).Concat(IncomeStatementElements.Keys).ToList();
 
-                    // add it to the correct statement for that context period
-                    AddToStatement(contexts[contextId], key, val);
+                foreach (string key in keys)
+                {
+                    // find all elements matching the tag (from all time periods)
+                    XmlNodeList nodeList = doc.GetElementsByTagName(key);
+                    foreach (XmlNode node in nodeList)
+                    {
+                        // figure out the context for each element of that name
+                        string contextId = node.Attributes["contextRef"].InnerText;
+                        string val = node.InnerText;
+
+                        // add it to the correct statement for that context period
+                        AddToStatement(contexts[contextId], key, val);
+                    }
                 }
             }
 

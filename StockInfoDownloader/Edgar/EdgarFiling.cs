@@ -81,8 +81,9 @@ namespace StockInfoDownloader.Edgar
         public string Ticker { get; set; }
 
         [Ignore]
-        public string FilingUrl { get { return this.FilingDirectory + "/" + this.FileName; } }
-        
+        //public string FilingUrl { get { return this.FilingDirectory + "/" + this.FileName; } }
+        public string FilingUrl { get; set; }
+
         public EdgarFiling()
         {
         }

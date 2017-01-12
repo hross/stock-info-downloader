@@ -9,9 +9,12 @@ using RestSharp;
 using ServiceStack.OrmLite;
 using StockInfoDownloader.CompanyListings;
 using StockInfoDownloader.Utility;
+using HtmlAgilityPack;
 
 namespace StockInfoDownloader.Edgar
 {
+    
+
     /// <summary>
     /// This class allows us to download SEC filing data directly from EDGAR, via RSS streams for various companies.
     /// </summary>
@@ -112,6 +115,8 @@ namespace StockInfoDownloader.Edgar
             }
         }
 
+       
+
         private void ParseFiling(IDbConnection db, SyndicationItem item)
         {
             try
@@ -126,7 +131,8 @@ namespace StockInfoDownloader.Edgar
                     if (!string.IsNullOrEmpty(filing.FilingDirectory))
                     {
                         // find root directory of each filing
-                        RestClient client = new RestClient(filing.FilingDirectory);
+                        //RestClient client = new RestClient(filing.FilingDirectory);
+                        RestClient client = new RestClient(filing.FilingHref);
                         var request = new RestRequest();
                         request.Method = Method.GET;
 
@@ -134,26 +140,52 @@ namespace StockInfoDownloader.Edgar
 
                         string content = response.Content;
 
-                        Match match = Regex.Match(content, @"<a href=""([\w]+-[\d]+\.xml)"">[\w]+-[\d]+\.xml</a>", RegexOptions.IgnoreCase);
-                        if (match.Success)
+                     
+                        foreach (LinkItem i in LinkFinder.Find(content))
                         {
-                            filing.FileName = match.Groups[1].Value;
-
-                            filing.PathOnDisk = DownloadXml(filing.FilingUrl, DownloadPath(_basePath, _ticker, filing.FileName));
-
-                            if (!string.IsNullOrEmpty(filing.PathOnDisk))
+                            if (i.Href.Substring(i.Href.Length - 4, 4)==".xml")
                             {
-                                db.Insert(filing);
-                            }
-                            else
-                            {
-                                ErrorLog.HandleError(this._ticker, "EdgarDownloader", string.Format("Unable to download xml for filing: {0} on ticker {1}", filing.FilingDate, this._ticker));
+                                filing.FileName = i.Text;
+                                filing.FilingUrl = "https://www.sec.gov" + i.Href;
+
+                                filing.PathOnDisk = DownloadXml(filing.FilingUrl, DownloadPath(_basePath, _ticker, filing.FileName));
+
+                                if (!string.IsNullOrEmpty(filing.PathOnDisk))
+                                {
+                                    db.Insert(filing);
+                                }
+                                else
+                                {
+                                    ErrorLog.HandleError(this._ticker, "EdgarDownloader", string.Format("Unable to download xml for filing: {0} on ticker {1}", filing.FilingDate, this._ticker));
+                                }
+                                break;
                             }
                         }
-                        else
-                        {
-                            ErrorLog.HandleError(this._ticker, "EdgarDownloader", string.Format("Unable to find xml for filing: {0} on ticker {1}", filing.FilingDate, this._ticker));
-                        }
+
+
+
+                        //old
+                        //Match match = Regex.Match(content, @"<a href=""([\w]+-[\d]+\.xml)"">[\w]+-[\d]+\.xml</a>", RegexOptions.IgnoreCase);
+
+                        //if (match.Success)
+                        //{
+                        //    filing.FileName = match.Groups[1].Value;
+
+                        //    filing.PathOnDisk = DownloadXml(filing.FilingUrl, DownloadPath(_basePath, _ticker, filing.FileName));
+
+                        //    if (!string.IsNullOrEmpty(filing.PathOnDisk))
+                        //    {
+                        //        db.Insert(filing);
+                        //    }
+                        //    else
+                        //    {
+                        //        ErrorLog.HandleError(this._ticker, "EdgarDownloader", string.Format("Unable to download xml for filing: {0} on ticker {1}", filing.FilingDate, this._ticker));
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    ErrorLog.HandleError(this._ticker, "EdgarDownloader", string.Format("Unable to find xml for filing: {0} on ticker {1}", filing.FilingDate, this._ticker));
+                        //}
                     }
                     else
                     {

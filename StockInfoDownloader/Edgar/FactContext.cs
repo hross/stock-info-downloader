@@ -62,12 +62,12 @@ namespace StockInfoDownloader.Edgar
             foreach (XmlNode contextChild in contextNode.ChildNodes)
             {
                 // find time period section
-                if (contextChild.Name.ToLower() == "period")
+                if (contextChild.Name.ToLower() == "xbrli:period")
                 {
                     foreach (XmlNode timeChild in contextChild)
                     {
                         // find the right part of time period
-                        if (timeChild.Name == "instant")
+                        if (timeChild.Name == "xbrli:instant")
                         {
                             DateTime dt;
                             DateTime.TryParse(timeChild.InnerText, out dt);
@@ -75,13 +75,13 @@ namespace StockInfoDownloader.Edgar
                             this.EndDate = dt;
                             break;
                         }
-                        else if (timeChild.Name == "endDate")
+                        else if (timeChild.Name == "xbrli:endDate")
                         {
                             DateTime dt;
                             DateTime.TryParse(timeChild.InnerText, out dt);
                             this.EndDate = dt;
                         }
-                        else if (timeChild.Name == "startDate")
+                        else if (timeChild.Name == "xbrli:startDate")
                         {
                             DateTime dt;
                             DateTime.TryParse(timeChild.InnerText, out dt);
@@ -89,11 +89,11 @@ namespace StockInfoDownloader.Edgar
                         }
                     }
                 }
-                else if (contextChild.Name.ToLower() == "entity")
+                else if (contextChild.Name.ToLower() == "xbrli:entity")
                 {
                     foreach (XmlNode entityChild in contextChild)
                     {
-                        if (entityChild.Name == "identifier")
+                        if (entityChild.Name == "xbrli:identifier")
                         {
                             this.Identifier = entityChild.InnerText.Trim();
                             break;
