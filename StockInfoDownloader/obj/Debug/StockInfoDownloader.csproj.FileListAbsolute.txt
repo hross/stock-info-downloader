@@ -20,3 +20,5 @@ C:\Workspace\04_Github\stock-info-downloader\StockInfoDownloader\obj\Debug\Stock
 C:\Workspace\04_Github\stock-info-downloader\StockInfoDownloader\obj\Debug\StockInfoDownloader.exe
 C:\Workspace\04_Github\stock-info-downloader\StockInfoDownloader\obj\Debug\StockInfoDownloader.pdb
 C:\Workspace\04_Github\stock-info-downloader\StockInfoDownloader\bin\Debug\HtmlAgilityPack.dll
+C:\Workspace\04_Github\stock-info-downloader\StockInfoDownloader\bin\Debug\StockInfoCommons.dll
+C:\Workspace\04_Github\stock-info-downloader\StockInfoDownloader\bin\Debug\StockInfoCommons.pdb
