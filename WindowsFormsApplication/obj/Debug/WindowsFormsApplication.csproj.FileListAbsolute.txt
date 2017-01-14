@@ -2,7 +2,6 @@ C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\bin\Debug\W
 C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\bin\Debug\WindowsFormsApplication.exe
 C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\bin\Debug\WindowsFormsApplication.pdb
 C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.csprojResolveAssemblyReference.cache
-C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.Form1.resources
 C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.Properties.Resources.resources
 C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.csproj.GenerateResource.Cache
 C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.exe
@@ -25,3 +24,4 @@ C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\bin\Debug\S
 C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\bin\Debug\ServiceStack.Text.xml
 C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\bin\Debug\StockInfoCommons.dll
 C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\bin\Debug\StockInfoCommons.pdb
+C:\Workspace\04_Github\stock-info-downloader\WindowsFormsApplication\obj\Debug\WindowsFormsApplication.Form1.resources

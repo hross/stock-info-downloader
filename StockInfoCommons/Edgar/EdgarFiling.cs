@@ -45,19 +45,20 @@ namespace StockInfoCommons.Edgar
         [XmlElement("filing-href")]
         public string FilingHref { get; set; }
 
-        public string FilingDirectory
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(this.FilingHref)) return string.Empty;
+        //todo we do not need this?
+        //public string FilingDirectory
+        //{
+        //    get
+        //    {
+        //        if (string.IsNullOrEmpty(this.FilingHref)) return string.Empty;
 
-                int pos = FilingHref.LastIndexOf("/");
+        //        int pos = FilingHref.LastIndexOf("/");
 
-                if (pos <= 0) return string.Empty;
+        //        if (pos <= 0) return string.Empty;
 
-                return FilingHref.Substring(0, pos);
-            }
-        }
+        //        return FilingHref.Substring(0, pos);
+        //    }
+        //}
 
         [XmlElement("filing-type")]
         public string FilingType { get; set; }

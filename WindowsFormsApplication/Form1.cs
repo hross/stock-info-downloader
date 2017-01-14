@@ -18,6 +18,9 @@ using System.Threading;
 
 namespace WindowsFormsApplication
 {
+
+   
+
     public partial class Form1 : Form
     {
         public Form1()
@@ -25,9 +28,50 @@ namespace WindowsFormsApplication
             InitializeComponent();
         }
 
-        private void BTN_search_Click(object sender, EventArgs e)
+     
+
+        private BindingSource bindingSource1 = new BindingSource();
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
+            DBUtility db = new DBUtility();
+            db.InitTables();
+
+            this.LoadDataEdgarFilings();
+            
+        }
+
+
+        private void LoadDataEdgarFilings() {
+
+            DBUtility db = new DBUtility();
+            IEnumerable<EdgarFiling> filings = db.GetAll();
+
+            bindingSource1.Clear();
+
+            if (filings != null && filings.Count() > 0)
+            {
+                foreach (EdgarFiling item in filings)
+                {
+                    bindingSource1.Add(item);
+                }
+            }
+
+            dataGridView1.DataSource = bindingSource1;
+
+        }
+
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+            DBUtility db = new DBUtility();
+            db.DeleteAllTables();
+        }
+
+
+
+        private void BTN_search_Click_1(object sender, EventArgs e)
+        {
             this.txt_input_search.Enabled = false;
             this.BTN_search.Enabled = false;
 
@@ -49,8 +93,8 @@ namespace WindowsFormsApplication
 
             this.txt_input_search.Enabled = true;
             this.BTN_search.Enabled = true;
-        }
-        
 
+            this.LoadDataEdgarFilings();
+        }
     }
 }

@@ -5,6 +5,8 @@ using StockInfoCommons.Financials;
 using StockInfoCommons.GoogleFinance;
 using StockInfoCommons.Metrics;
 using StockInfoCommons.Simulation;
+using System.Diagnostics;
+using System;
 
 namespace StockInfoDownloader
 {
@@ -13,10 +15,13 @@ namespace StockInfoDownloader
 
         static void Main(string[] args)
         {
-            
+            DBUtility db = new DBUtility();
+            db.InitTables();
+
+
             string basePath = Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(Program)).Location);
 
-            string symbol = "MMM";
+            string symbol = "AAPL";
 
             System.Console.WriteLine("Search data for symbol: " + symbol);
 
@@ -42,7 +47,13 @@ namespace StockInfoDownloader
             modelSerivce.UpdateGrahamAnalysis(symbol);
             modelSerivce.UpdateDcfAnalysis(symbol);
 
-            System.Console.WriteLine("Exit");
+            System.Console.WriteLine("Done");
+
+            if (Debugger.IsAttached)
+            {
+                Console.WriteLine("... Press any key to continue ...");
+                Console.ReadLine();
+            }
         }
     }
 }

@@ -19,3 +19,4 @@ C:\Workspace\04_Github\stock-info-downloader\StockInfoCommons\bin\Debug\ServiceS
 C:\Workspace\04_Github\stock-info-downloader\StockInfoCommons\bin\Debug\ServiceStack.OrmLite.pdb
 C:\Workspace\04_Github\stock-info-downloader\StockInfoCommons\bin\Debug\ServiceStack.OrmLite.SqlServer.pdb
 C:\Workspace\04_Github\stock-info-downloader\StockInfoCommons\bin\Debug\StockInfoCommons.dll.config
+C:\Workspace\04_Github\stock-info-downloader\StockInfoCommons\obj\Debug\StockInfoCommons.csprojResolveAssemblyReference.cache

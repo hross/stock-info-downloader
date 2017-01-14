@@ -102,6 +102,7 @@
     <Compile Include="Simulation\GrahamAnalysis.cs" />
     <Compile Include="Utility\AttributeExtensions.cs" />
     <Compile Include="Utility\ErrorLog.cs" />
+    <Compile Include="Utility\DBUtility.cs" />
     <Compile Include="Utility\IDownloader.cs" />
     <Compile Include="Utility\LinkExtractor.cs" />
     <Compile Include="Utility\NumericExtensions.cs" />

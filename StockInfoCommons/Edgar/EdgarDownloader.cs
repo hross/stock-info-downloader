@@ -25,7 +25,10 @@ namespace StockInfoCommons.Edgar
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #endregion
 
-        private const string BaseEdgarRss = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={0}&type=&dateb=&owner=exclude&start=0&count={1}&output=atom";
+        //TODO define 10-k and 8-q
+        //private const string BaseEdgarRss = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={0}&type=&dateb=&owner=exclude&start=0&count={1}&output=atom";
+        private const string BaseEdgarRss = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={0}&type=10-k&dateb=&owner=exclude&count={1}&output=atom";
+        
 
         private string _ticker;
         private string _basePath;
@@ -128,7 +131,8 @@ namespace StockInfoCommons.Edgar
                 // if it's a quarterly or annual report, save info
                 if (null != filing && filing.FilingType == "10-K" || filing.FilingType == "10-Q")
                 {
-                    if (!string.IsNullOrEmpty(filing.FilingDirectory))
+                    //if (!string.IsNullOrEmpty(filing.FilingDirectory))
+                    if (!string.IsNullOrEmpty(filing.FilingHref))
                     {
                         // find root directory of each filing
                         //RestClient client = new RestClient(filing.FilingDirectory);
@@ -143,6 +147,7 @@ namespace StockInfoCommons.Edgar
                      
                         foreach (LinkItem i in LinkFinder.Find(content))
                         {
+                            //TODO not a beauty
                             if (i.Href.Substring(i.Href.Length - 4, 4)==".xml")
                             {
                                 filing.FileName = i.Text;
@@ -158,12 +163,11 @@ namespace StockInfoCommons.Edgar
                                 {
                                     ErrorLog.HandleError(this._ticker, "EdgarDownloader", string.Format("Unable to download xml for filing: {0} on ticker {1}", filing.FilingDate, this._ticker));
                                 }
+                                //one item is enough
                                 break;
                             }
                         }
-
-
-
+                        
                         //old
                         //Match match = Regex.Match(content, @"<a href=""([\w]+-[\d]+\.xml)"">[\w]+-[\d]+\.xml</a>", RegexOptions.IgnoreCase);
 

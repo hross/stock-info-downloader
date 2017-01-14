@@ -55,7 +55,7 @@ namespace StockInfoCommons.Simulation
         }
 
         /// <summary>
-        /// TODO: remove this method...
+        /// todo: remove this method...
         /// </summary>
         /// <param name="connection"></param>
         /// <param name="ticker"></param>
