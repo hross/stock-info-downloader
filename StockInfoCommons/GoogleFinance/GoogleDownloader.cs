@@ -53,7 +53,6 @@ namespace StockInfoCommons.GoogleFinance
 
         private static string DownloadPath(string basePath, string ticker, string exchange = "")
         {
-
             string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
             Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
             ticker = r.Replace(ticker, "_");
